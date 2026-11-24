@@ -72,12 +72,15 @@ npm run build
 
 ## Docker
 
-The image serves the built app with nginx at `/` on port 8080
+The image serves the built app with static-web-server at `/` on port 8080
 (`/healthz` for health checks). `.github/workflows/docker.yml` publishes
 `ghcr.io/fxi/zarcube` on each push to `main` (`latest`, commit sha) and on
 `v*` tags (semver).
 
 ```bash
-docker compose up --build        # http://localhost:8080/
+npm run docker:up                # or: docker compose up -d --build; http://localhost:8080/
+PORT=18080 npm run docker:up     # another host port
+npm run docker:logs              # follow the logs
+npm run docker:down              # stop and remove
 docker run -p 8080:8080 ghcr.io/fxi/zarcube:latest
 ```
